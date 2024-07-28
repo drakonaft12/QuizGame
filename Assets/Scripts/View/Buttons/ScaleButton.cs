@@ -17,11 +17,6 @@ namespace View
         [SerializeField] private float durationEffect = 0.3f;
         private Tween currentTween;
 
-        private void Awake()
-        {
-            defaultScale = transform.localScale;
-
-        }
 
         public void OnPointerDown(PointerEventData eventData)
         {
@@ -30,6 +25,7 @@ namespace View
                 return;
             }
 
+            defaultScale = transform.localScale;
             currentTween?.Kill();
             currentTween = transform.DOScale(holdScale, durationEffect);
         }

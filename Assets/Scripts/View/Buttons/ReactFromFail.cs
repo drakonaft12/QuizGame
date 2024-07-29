@@ -8,10 +8,9 @@ using View;
 
 namespace View
 {
-    public class ReactFromFail : MonoBehaviour, IPointerClickHandler, IButtonEffect
+    public class ReactFromFail : MonoBehaviour, IButtonEffect
     {
         [SerializeField] private bool use = true;
-        private bool isCorrect = true;
         [SerializeField] private float amplitude = 1;
         [SerializeField] private float durationEffect = 0.9f;
         [SerializeField] private float durationPause = 0.3f;
@@ -25,20 +24,16 @@ namespace View
 
         public void Notify(bool correct)
         {
-            isCorrect = correct;
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            if (!use || isCorrect)
+            if (!use || correct)
             {
                 return;
             }
-
+            
             currentTween?.Kill();
             currentTween = DOTween.Sequence()
                            .AppendInterval(durationPause)
-                           .Append(transform.DOPunchPosition(clickPosition, durationEffect,10,3));
+                           .Append(transform.DOPunchPosition(clickPosition, durationEffect, 10, 3));
         }
+
     }
 }

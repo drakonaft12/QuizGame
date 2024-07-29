@@ -12,9 +12,8 @@ namespace View
     {
         [SerializeField] private bool use = true;
         private bool isCorrect = true;
-        private Vector3 defaultPosition;
         [SerializeField] private float amplitude = 1;
-        [SerializeField] private float durationEffect = 0.3f;
+        [SerializeField] private float durationEffect = 0.9f;
         [SerializeField] private float durationPause = 0.3f;
         private Tween currentTween;
         private Vector3 clickPosition;
@@ -36,13 +35,10 @@ namespace View
                 return;
             }
 
-            defaultPosition = transform.position;
             currentTween?.Kill();
             currentTween = DOTween.Sequence()
-                           .Append(transform.DOMove(defaultPosition, durationPause))
-                           .Append(transform.DOMove(defaultPosition + clickPosition, durationEffect))
-                           .Append(transform.DOMove(defaultPosition - clickPosition, durationEffect))
-                           .Append(transform.DOMove(defaultPosition, durationEffect));
+                           .AppendInterval(durationPause)
+                           .Append(transform.DOPunchPosition(clickPosition, durationEffect,10,3));
         }
     }
 }

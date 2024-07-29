@@ -168,8 +168,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   use: 1
   amplitude: 50
-  durationEffect: 0.2
-  durationPause: 0.3
+  durationEffect: 0.6
+  durationPause: 0.6
 --- !u!1 &524831847479255049
 GameObject:
   m_ObjectHideFlags: 0

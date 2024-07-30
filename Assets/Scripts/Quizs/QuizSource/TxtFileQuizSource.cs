@@ -27,6 +27,7 @@ namespace Quizs.QuizSource
             for (var i = 0; i < lines.Count; i += 3)
             {
                 list.Add(
+                    
                     new Quiz(
                         lines[i].EnsureNotNull(),
                         lines[i + 1].EnsureNotNull(),

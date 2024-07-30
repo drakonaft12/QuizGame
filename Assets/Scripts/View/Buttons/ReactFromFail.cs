@@ -20,8 +20,8 @@ namespace View
 
         private void OnDisable()
         {
-            currentTween.Kill(true);
             defaultPosition = Vector3.zero;
+            currentTween.Kill();
         }
 
         public void Notify(bool correct)

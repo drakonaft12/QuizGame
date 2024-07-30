@@ -1,7 +1,10 @@
 #nullable enable
 using QuizGameCore;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
+using System.Xml.Serialization;
 using Uitls;
 using UnityEngine;
 
@@ -11,7 +14,6 @@ namespace Quizs.QuizSource
     public class CsvFileQuizSource : MonoBehaviour, IQuizSource
     {
         [SerializeField] private TextAsset? textAsset;
-
 
         public IReadOnlyList<IQuiz> QuizList()
         {
@@ -27,5 +29,6 @@ namespace Quizs.QuizSource
                 );
             }).ToList();
         }
+
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Serialization;
 using Uitls;
 using Unity.VisualScripting;
@@ -16,7 +17,6 @@ namespace Quizs.QuizSource
     public class JsonFileQuizSource : MonoBehaviour, IQuizSource
     {
         [SerializeField] private TextAsset textAsset = null!;
-        [SerializeField] private TextAsset? textTable;
         private List<QuizData> _list = null!;
 
 
@@ -29,11 +29,13 @@ namespace Quizs.QuizSource
             return list.Select(q => q.Create()).ToList();
         }
 
+        [ContextMenu("Xml")]
         private void SerialiseFromXml()
         {
-            var raw = textTable.EnsureNotNull().text;
             XmlSerializer serializer = new XmlSerializer(typeof(List<QuizData>));
-
+            FileStream file = new FileStream(Application.dataPath + "/Resources/quizTable.xml", FileMode.Create);
+            serializer.Serialize(file, _list);
+            file.Close();
         }
 
         [SuppressMessage("ReSharper", "InconsistentNaming")]

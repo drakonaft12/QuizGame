@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ArrayOfQuizData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <QuizData>
+    <Question>Время приключений</Question>
+    <CorrectAnswer>Всегда</CorrectAnswer>
+    <WrongAnswers>
+      <string>Никогда</string>
+      <string>Что это?</string>
+      <string>Иногда</string>
+    </WrongAnswers>
+  </QuizData>
+  <QuizData>
+    <Question>Трёхфазный двигатель может работать на одной фазе?</Question>
+    <CorrectAnswer>Может</CorrectAnswer>
+    <WrongAnswers>
+      <string>Он сгорит</string>
+      <string>А что такое двигатель?</string>
+      <string>Что за вопросы?</string>
+    </WrongAnswers>
+  </QuizData>
+  <QuizData>
+    <Question>Some text</Question>
+    <CorrectAnswer>Correct answer</CorrectAnswer>
+    <WrongAnswers>
+      <string>Hi</string>
+      <string>Other</string>
+      <string>Something</string>
+    </WrongAnswers>
+  </QuizData>
+  <QuizData>
+    <Question>Some lifе</Question>
+    <CorrectAnswer>Hеlp mе!</CorrectAnswer>
+    <WrongAnswers>
+      <string>Hеlp mе!</string>
+      <string>Hеlp mе!</string>
+      <string>Hеlp mе!</string>
+    </WrongAnswers>
+  </QuizData>
+</ArrayOfQuizData>

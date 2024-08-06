@@ -1,4 +1,5 @@
 #nullable enable
+using Liderboards.View;
 using QuizGameCore.Utils;
 using Quizs;
 using Quizs.Fails;
@@ -14,6 +15,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private QuizView quizView = null!;
     [SerializeField] private Timer timer = null!;
     [SerializeField] private Attempts attempts = null!;
+    [SerializeField] private SubmitLeaderView submitLeaderView = null!;
     [SerializeField] private float rewardTime = 2;
     [SerializeField] private float suspendNextQuestionSeconds = 1;
 
@@ -22,6 +24,9 @@ public class EntryPoint : MonoBehaviour
     {
         timer.EnsureNotNull();
         attempts.EnsureNotNull();
+        submitLeaderView.EnsureNotNull();
+
+        submitLeaderView.StartAndHide();
 
         var waitFail = WaitFail(
             new IFail.Any(
@@ -54,14 +59,19 @@ public class EntryPoint : MonoBehaviour
             if (fail.Failed)
             {
                 print("Game failed");
+                submitLeaderView.Stop();
                 break;
             }
 
             yield return new WaitForSeconds(suspendNextQuestionSeconds);
         }
 
+        if (!fail.Failed)
+            submitLeaderView.Stop();
+        
         quizView.gameObject.SetActive(false);
         timer.enabled = false;
+
     }
 
 

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -14,6 +16,7 @@ namespace Liderboards.View
         [SerializeField] private TMP_InputField nameInput;
         [SerializeField] private Button submitButton;
         [SerializeField] private float recordsTime;
+        [SerializeField] private int _miss;
         private ILiderboard liderboard;
         private readonly StopWatch stopWatch = new();
 
@@ -29,8 +32,15 @@ namespace Liderboards.View
 
         private async void Submit()
         {
-            await liderboard.Note(nameInput.text, recordsTime);
+            await liderboard.Note(nameInput.text, recordsTime, _miss);
             SubmitEvent.Invoke();
+            transform.localScale = Vector3.zero;
+            await Task.Delay(500);
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
         }
 
         public void StartAndHide()
@@ -39,11 +49,12 @@ namespace Liderboards.View
             transform.localScale = Vector3.zero;
         }
 
-        public void Stop()
+        public void Stop(int miss = 0)
         {
             recordsTime = stopWatch.Stop();
+            _miss = miss;
             transform.localScale = Vector3.one;
-            timeText.text = "Scored: " + recordsTime.ToString("0.00");
+            timeText.text = $"Scored: {recordsTime.ToString("0.00")} Miss: {miss}";
 
         }
     }

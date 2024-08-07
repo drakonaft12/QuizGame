@@ -10,9 +10,16 @@ namespace Liderboards
         //[SerializeField] private NetworkLeaderboard networkLeaderboard;
         [SerializeField] private LocalLeaderboard localLeaderboard;
 
+        [ContextMenu("Show")]
         public async void Show()
         {
-            //Debug.Log(JsonConvert.SerializeObject(await));
+            var records = await localLeaderboard.Leaders();
+            string t = "";
+            foreach (var record in records)
+            {
+                t += $"\n{record.Name} \t| {record.Time} \t| {record.Miss}";
+            }
+            Debug.Log(t);
         }
     }
 }

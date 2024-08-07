@@ -67,7 +67,7 @@ public class EntryPoint : MonoBehaviour
         }
 
         if (!fail.Failed)
-            submitLeaderView.Stop();
+            submitLeaderView.Stop(attempts.Count);
         
         quizView.gameObject.SetActive(false);
         timer.enabled = false;

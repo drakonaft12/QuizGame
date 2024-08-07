@@ -10,35 +10,34 @@ namespace Liderboards
     {
         public async Task<IReadOnlyList<Record>> Leaders()
         {
-            throw new System.NotImplementedException();
+            FileStream stream = new(Application.persistentDataPath + "/Leaderboard.json", FileMode.Open);
+
+            StreamReader reader = new(stream);
+            string json = await reader.ReadToEndAsync();
+            reader.Close();
+            stream.Close();
+            json = "[" + json + "]";
+            return JsonConvert.DeserializeObject<List<Record>>(json);
         }
 
-        public async Task Note(string name, float time)
+        public async Task Note(string name, float time, int miss)
         {
             FileStream stream = new(Application.persistentDataPath + "/Leaderboard.json", FileMode.Append);
-            
+
             StreamWriter writer = new(stream);
 
             Record record = new Record
             {
                 Name = name,
-                Time = time
+                Time = time,
+                Miss = miss
             };
-            if(stream.Length != 0) await writer.WriteAsync(",\n");
+            if (stream.Length != 0) await writer.WriteAsync(",\n");
             await writer.WriteAsync(JsonConvert.SerializeObject(record, Formatting.Indented));
 
             writer.Close();
             stream.Close();
-            
-        }
 
-        private  void Save(IReadOnlyList<Record> records)
-        {
-            FileStream stream = new FileStream(Application.persistentDataPath + "/Leaderboard.json", FileMode.Create);
-            StreamWriter writer = new StreamWriter(stream);
-            writer.Write(JsonConvert.SerializeObject(records));
-            writer.Close();
-            stream.Close();
         }
     }
 }
